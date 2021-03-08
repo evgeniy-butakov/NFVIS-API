@@ -1,0 +1,113 @@
+<config>
+
+    <image>
+        <image>
+            <name>128T-5.0.0</name>
+            <src>ftp://ciscoios:ciscoios@nsa.slb.com/ENCS/128T-HE/128T-5.0.0-1-ENCSv1.6-HE.tar.gz</src>
+            <properties>
+		        <property>
+			        <name>placement</name>
+			        <value>datastore2</value>
+		        </property>
+	        </properties>
+        </image>
+    </image>
+
+    <vlans>
+        <vlan>
+            <name> VLAN10 </name>
+            <tag> 10 </tag>
+         </vlan>
+         <vlan>
+             <name> VLAN20 </name>
+             <tag> 20 </tag>
+         </vlan>
+        <vlan>
+            <name> VLAN30 </name>
+            <tag> 30 </tag>
+        </vlan>
+    </vlans>
+
+    <networks>
+
+        <network>
+            <name>LAN-SRIOV-16</name>
+            <trunk>false</trunk>
+            <vlan>15</vlan>
+            <sriov>true</sriov>
+        </network>
+        <network>
+            <name>LAN-SRIOV-17</name>
+            <trunk>true</trunk>
+            <sriov>true</sriov>
+        </network>
+    </networks>
+
+    <banners>
+<banner-motd>
+    <banner>
+ *******************************************************************
+ Use is restricted to Schlumberger authorized users who
+ must comply with the Information Security User Standard.
+ Usage is monitored; unauthorized use will be prosecuted.
+ *******************************************************************
+     </banner>
+    <motd>
+ |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ This is a Critical Schlumberger device, any configuration
+ change must be done through an approved Change Management.
+ Usage is monitored; unauthorized use will be prosecuted.
+ |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+    </motd>
+</banner-motd>
+    </banners>
+
+    <snmp_groups>
+            <group>
+
+	            <group-context-prefix>snmp</group-context-prefix>
+	            <group-version>2</group-version>
+	            <security-level>noAuthNoPriv</security-level>
+	            <read>read-access</read>
+	            <write>write-access</write>
+	            <notify>notify-access</notify>
+            </group>
+    </snmp_groups>
+
+    <tacacs_servers>
+            <host>
+                <server>192.23.105.146</server>
+                <secret>
+                    <key>0</key>
+                    <shared-secret>passw0rd!</shared-secret>
+                    <admin-priv>15</admin-priv>
+                    <oper-priv>11</oper-priv>
+                </secret>
+
+            </host>
+
+        <host>
+                <server>2.2.2.2</server>
+                <secret>
+                    <key>0</key>
+                    <shared-secret>passw0rd!</shared-secret>
+                    <admin-priv>15</admin-priv>
+                    <oper-priv>11</oper-priv>
+                </secret>
+
+            </host>
+
+    </tacacs_servers>
+
+
+    <snmp_users>
+        <user>
+	        <user-name>test_user2</user-name>
+	        <user-version>2</user-version>
+	        <user-group>public</user-group>
+        </user>
+    </snmp_users>
+
+
+</config>
