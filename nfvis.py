@@ -16,7 +16,7 @@ def get(username, password, uri, header):
     )
     if response.status_code != 204:
         code = response.status_code
-        content = response.content
+        content = str(response.content,'utf8')
         return code, content
     else:
         code = response.status_code
@@ -60,21 +60,21 @@ class API(object):
         self.uri = uri
         self.payload = payload
 
-    def query(self, command, form, argument="", payload=""):
+    def query(self, command, argument="", payload="",form="xml"):
         self.command = command
         self.format = form
         self.payload = payload
         if argument:
             self.data = "/" + argument
 
-        uri, method, typ = ud.get_urn_data(command, self.url, argument)
+        uri, method, typ = ud.get_urn_data(command, self.url, self.data)
         accept = "application/vnd.yang." + typ + "+" + self.format
         content_type = "application/vnd.yang.collection+" + self.format
         header_data = {"Content-type": content_type, "Accept": accept}
 
         if method == "GET":
+            print(uri)
             return get(self.username, self.password, uri, header_data)
-
         elif method == "PUT":
             return put(self.username, self.password, uri, header_data, self.payload)
         elif method == "DELETE":

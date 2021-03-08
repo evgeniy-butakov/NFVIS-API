@@ -5,7 +5,7 @@ import getpass
 
 def notvalidip(ip_addr, msg):
     try:
-        ip = ipaddress.ip_address(ip_addr)
+        ipaddress.ip_address(ip_addr)
         return False
     except:
         return True
@@ -22,27 +22,27 @@ def getcreds():
     # username = input("Username: ")
     username = "ebutakov"
     print(username, ", Enter your  password.")
-
     password = getpass.getpass()
     return url, username, password
 
 
 def get_payload():
-    return ("this is paylad from function get_payload()")
+    return "this is payload from function get_payload()"
 
 
 api = nfvis.API()
 api.url, api.username, api.password = getcreds()
-api.payload = "payload sample"
+api.payload = get_payload()
 
 try:
-    status_code,response = api.query("get_image_status", "xml", "128T-5.0.0", "")
-    print (status_code)
-    print(str(response,'utf8'))
+    status_code, response = api.query("get_routes")
+    print(status_code)
+    print(response)
+
 except KeyError:
     print("No such command!")
-except TypeError:
-    print("Argument error")
+#except TypeError:
+#    print("Argument error")
 except ConnectionError:
     print("ConnectionError")
 #except:
