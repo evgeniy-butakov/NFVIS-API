@@ -17,14 +17,13 @@ def notvalidip(ip_addr, msg):
 def getcreds():
     # Gets NFVIS IP Address, Username, and Password
     nfvis_ip = input(" \n What is the IP address of the NFVIS system: ")
-    # nfvis_ip="163.188.37.101"
     while notvalidip(nfvis_ip, True):
         ## True value of second argument will trigger  an  Error message if entered ip address is invalid
         nfvis_ip = input("What is the IP address of the NFVIS system: ")
 
     url = "https://" + nfvis_ip
     # username = input("Username: ")
-    username = "ebutakov"
+    username = "jenya"
     print(username, ", Enter your  password.")
 
     password = getpass.getpass()
