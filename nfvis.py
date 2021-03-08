@@ -4,6 +4,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+
 def get(username, password, uri, header):
     response = requests.get(
         uri,
