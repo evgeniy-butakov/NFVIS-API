@@ -1,6 +1,7 @@
 import requests
 from requests.auth import HTTPBasicAuth
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import urn_data as ud
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -66,20 +67,10 @@ class API(object):
         if argument:
             self.data = "/" + argument
 
-        uri_data = {
-
-            "get_routes": ["%s/api/config/system/routes%s" % (self.url, self.data), "data", "GET"],
-            "get_settings": ["%s/api/config/system/settings?deep%s" % (self.url, self.data), "collection", "GET"],
-            "get_image_status": ["%s/api/operational/vm_lifecycle/opdata/images/image/%s" % (self.url, self.data),
-                                 "data", "GET"]
-
-        }
-
-        accept = "application/vnd.yang." + uri_data[self.command][1] + "+" + self.format
+        uri, method, typ = ud.get_urn_data(command, self.url, argument)
+        accept = "application/vnd.yang." + typ + "+" + self.format
         content_type = "application/vnd.yang.collection+" + self.format
         header_data = {"Content-type": content_type, "Accept": accept}
-        method = uri_data[self.command][2]
-        uri = uri_data[self.command][0]
 
         if method == "GET":
             return get(self.username, self.password, uri, header_data)

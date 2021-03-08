@@ -24,7 +24,6 @@ def getcreds():
     print(username, ", Enter your  password.")
 
     password = getpass.getpass()
-    print (password)
     return url, username, password
 
 
@@ -46,5 +45,5 @@ except TypeError:
     print("Argument error")
 except ConnectionError:
     print("ConnectionError")
-except:
-    print("Something went wrong")
+#except:
+#    print("Something went wrong")
