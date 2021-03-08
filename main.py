@@ -41,9 +41,9 @@ try:
 
 except KeyError:
     print("No such command!")
-#except TypeError:
-#    print("Argument error")
+except TypeError:
+    print("Argument error")
 except ConnectionError:
     print("ConnectionError")
-#except:
-#    print("Something went wrong")
+except:
+    print("Something went wrong")

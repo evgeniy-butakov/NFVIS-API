@@ -73,7 +73,7 @@ class API(object):
         header_data = {"Content-type": content_type, "Accept": accept}
 
         if method == "GET":
-            print(uri)
+            #print(uri)
             return get(self.username, self.password, uri, header_data)
         elif method == "PUT":
             return put(self.username, self.password, uri, header_data, self.payload)
