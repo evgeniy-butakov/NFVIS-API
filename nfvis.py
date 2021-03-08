@@ -2,6 +2,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 def get(username, password, uri, header):
     response = requests.get(
@@ -81,6 +82,7 @@ class API(object):
 
         if method == "GET":
             return get(self.username, self.password, uri, header_data)
+
         elif method == "PUT":
             return put(self.username, self.password, uri, header_data, self.payload)
         elif method == "DELETE":

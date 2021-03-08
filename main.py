@@ -1,9 +1,6 @@
 import nfvis
 import ipaddress
 import getpass
-import requests
-from requests.auth import HTTPBasicAuth
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
 def notvalidip(ip_addr, msg):
@@ -23,11 +20,11 @@ def getcreds():
 
     url = "https://" + nfvis_ip
     # username = input("Username: ")
-    username = "jenya"
+    username = "ebutakov"
     print(username, ", Enter your  password.")
 
     password = getpass.getpass()
-    # print (password)
+    print (password)
     return url, username, password
 
 
@@ -40,9 +37,9 @@ api.url, api.username, api.password = getcreds()
 api.payload = "payload sample"
 
 try:
-    status_code,response = api.query("get_routes", "json", "argument", "payload")
+    status_code,response = api.query("get_image_status", "xml", "128T-5.0.0", "")
     print (status_code)
-    print(response)
+    print(str(response,'utf8'))
 except KeyError:
     print("No such command!")
 except TypeError:
