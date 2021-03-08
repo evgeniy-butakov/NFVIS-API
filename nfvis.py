@@ -42,7 +42,7 @@ def delete(username, password, uri, header):
         headers=header,
         timeout=10,
     )
-    return response.status_code
+    return response.status_code, "No Content"
 
 
 class API(object):
