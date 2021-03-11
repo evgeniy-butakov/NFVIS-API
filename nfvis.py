@@ -25,6 +25,8 @@ def get(username, password, uri, header):
 
 
 def put(username, password, uri, header, payload):
+    print("header is:\n", header)
+    print("payload is:\n", payload)
     response = requests.put(
         uri,
         verify=False,
@@ -33,8 +35,28 @@ def put(username, password, uri, header, payload):
         data=payload,
         timeout=10,
     )
-    return response.status_code, response
 
+    if response.status_code != 204:
+        code = response.status_code
+        content = str(response.content, 'utf8')
+        return code, content
+    else:
+        code = response.status_code
+        content = "Success. No content"
+        return code, content
+
+
+def post(username, password, uri, header,payload):
+
+        response = requests.post(
+            uri,
+            verify=False,
+            auth=HTTPBasicAuth(username, password),
+            headers=header,
+            data=payload,
+            timeout=10,
+        )
+        return response.status_code, response
 
 def delete(username, password, uri, header):
     """gets the specified uri and returns: response code, response. """
@@ -69,16 +91,20 @@ class API(object):
 
         uri, method, typ = ud.get_urn_data(command, self.url, self.data)
         accept = "application/vnd.yang." + typ + "+" + self.format
-        content_type = "application/vnd.yang.collection+" + self.format
+        content_type = "application/vnd.yang.data+" + self.format
+        #content_type = "application/vnd.yang."+ typ + "+" + self.format
         header_data = {"Content-type": content_type, "Accept": accept}
 
         if method == "GET":
-            #print(uri)
+            print(uri)
             return get(self.username, self.password, uri, header_data)
         elif method == "PUT":
+            print(uri)
             return put(self.username, self.password, uri, header_data, self.payload)
         elif method == "DELETE":
             return delete(self.username, self.password, uri, header_data)
+        elif method == "POST":
+            return post(self.username, self.password, uri, header_data, self.payload)
         else:
             raise ValueError
 

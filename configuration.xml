@@ -1,5 +1,17 @@
 <config>
 
+    <system>
+        <settings>
+                <hostname>MyNFVIS123</hostname>
+        </settings>
+    </system>
+
+    <syslog>
+        <host>
+            <host>163.185.18.27</host>
+        </host>
+    </syslog>
+
     <image>
         <image>
             <name>128T-5.0.0</name>

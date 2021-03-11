@@ -4,6 +4,8 @@ import getpass
 import xml.etree.ElementTree as ET
 import os
 
+config = "configuration.xml"
+
 
 def notvalidip(ip_addr, msg):
     try:
@@ -13,10 +15,10 @@ def notvalidip(ip_addr, msg):
         return True
 
 
-def get_section(file, section):
-    print(file)
+def get_section(section):
+    #print(config)
     # This function returns xml configuration block(s) and number of blocks based on configuration file and section name
-    tree = ET.parse(file)
+    tree = ET.parse(config)
     root = tree.getroot()
     sections_list = []
     output_list = []
@@ -35,8 +37,9 @@ def get_section(file, section):
 
     for i in output_list:
         payload += i
+    # print(payload)
+    return payload
 
-    return len(payload), payload
 
 def getcreds():
     # Gets NFVIS IP Address, Username, and Password
@@ -53,18 +56,21 @@ def getcreds():
     return url, username, password
 
 
-#def get_payload():
-#    return "this is payload from function get_payload()"
-
-print(get_section("configuration.xml", "banners"))
 api = nfvis.API()
 api.url, api.username, api.password = getcreds()
-api.payload = get_payload()
+# api.payload = get_seсtion()
 
 try:
-    status_code, response = api.query("get_routes")
-    print(status_code)
-    print(response)
+
+    # status_code, response = api.query("put_banner", None, get_section(config, "banners"))
+    # status_code, response = api.query("get_settings")
+    # status_code, response = api.query("image_reg", None, get_section(config, "image"))
+    status_code, response = api.query("get_image_status", "128T-5.0.0", "","json")
+    #status_code, response = api.query("delete_syslog", "163.185.18.27")
+    #status_code, response = api.query("configure_syslog",None,get_section("syslog"))
+
+    print(status_code,", ",response)
+
 
 except KeyError:
     print("No such command!")
